@@ -22,7 +22,7 @@ public class Main extends Application {
 	Scene scene = new Scene(root);	//sets the scene to be the splash ui
 	primaryStage.setScene(scene);	//adds scene to the stage
 	primaryStage.initStyle(StageStyle.UNDECORATED);		//removes the default menu bar(the minimize, expand,close)
-	primaryStage.show();								//sets the visibility to true
+	primaryStage.show();								//sets the visibility
 	
 	}
 	
