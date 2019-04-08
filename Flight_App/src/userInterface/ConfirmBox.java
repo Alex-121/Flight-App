@@ -7,8 +7,8 @@ import javafx.scene.control.*;
 import javafx.geometry.*;
 
 public class ConfirmBox {
-	
-	static boolean answer;
+	//testing 
+	static boolean answer;	
 
 	public static boolean display(String title, String message) {
 	
