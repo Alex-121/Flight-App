@@ -9,10 +9,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.scene.input.ContextMenuEvent;
 
 public class LoginUIController {
+	
+	@FXML
+	private AnchorPane loginScreen; 
 	@FXML
 	private Button logIn;
 	@FXML
@@ -45,10 +48,12 @@ public class LoginUIController {
 			
 			e.printStackTrace();
 		}
+		
+	
 	}
 	// Event Listener on Button[#forgotPassword].onContextMenuRequested
 	@FXML
-	public void getQuestion(ContextMenuEvent event) {
+	public void getQuestion(MouseEvent event) {
 	
 		
 	}
