@@ -1,5 +1,7 @@
 package userInterface;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import businessLogic.Person;
 import data.Data;
 import data.HandleExceptions;
@@ -56,7 +58,7 @@ public class Sign_UpController {
 
 	// Event Listener on Button[#signupButton].onMouseClicked
 	@FXML
-	public void addUser(MouseEvent event) throws Exception{
+	public void addUser(MouseEvent event) {
 		
 		//generic person class that has all the variables
 		Person p = new Person();
@@ -75,9 +77,13 @@ public class Sign_UpController {
 		//generic data object that can be push to database and exception catcher
 		Data d = new Data();
 		d.setPerson(p);
-		HandleExceptions ex = new HandleExceptions();
-		ex.setData(d);
-		
+		HandleExceptions h = new HandleExceptions();
+		try {
+			h.checkExceptions(d, "sign up");
+		} catch (SQLIntegrityConstraintViolationException e) {
+			// alert user about ssn error(ssn is already in database)
+			e.printStackTrace();
+		}
 		
 	}
 	
