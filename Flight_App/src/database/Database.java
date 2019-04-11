@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import data.Data;
-import data.userNameException;
+import data.customException;
 
 public class Database {
 	
@@ -54,7 +54,7 @@ public class Database {
 		
 	}
 	
-	public void login(Data example) throws SQLException, userNameException {
+	public void login(Data example) throws SQLException, customException {
 		
 		ResultSet rs;
 		String query = " select pass from user where userName = " + "'" + example.getPerson().getUserName() + "'";
@@ -69,7 +69,7 @@ public class Database {
 			
 		}
 		else
-			throw new userNameException("User name not found, Please sign up");
+			throw new customException("User name not found, Please sign up");
 	}
 	
 	public void closeConnection() throws SQLException {
