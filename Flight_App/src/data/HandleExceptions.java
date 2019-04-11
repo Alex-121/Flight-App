@@ -2,30 +2,28 @@ package data;
 
 import java.sql.*;
 
-import database.Database;
-import javafx.scene.control.Alert;
+public class HandleExceptions extends Logic{
+	
 
-public class HandleExceptions {
+
 	
-	Database d;
-	Alerts a;
-	Data data;
-	
-	
-	public void checkExceptions(Object obj) {
+	public void checkExceptions(Data example, String msg) throws SQLIntegrityConstraintViolationException {
+		Logic t = new Logic();
 		
 		try {
-			System.out.println("In the check section");
-			d = new Database();
-			d.addUser((data));
-			d.closeConnection();
+
+			t.getData(example, msg);
+			
+			
+			
 		}
 		
 		catch(SQLIntegrityConstraintViolationException ex) {
-			a = new Alerts();
-			String error = ex.getMessage();
-			a.alert1(error);
-		}
+			System.out.println("figured it out");
+			//throw this back up so app can display alert about ssn duplication
+			throw new SQLIntegrityConstraintViolationException("SSN error");
+		} 
+		
 		catch(Exception ex) {
 			ex.printStackTrace();
 		}
@@ -38,19 +36,6 @@ public class HandleExceptions {
 				System.out.println("Error caught");;
 			}
 		}
-		
-	}
-	public Database getD() {
-		return d;
-	}
-	public void setD(Database d) {
-		this.d = d;
-	}
-	
-	public void setData(Data a) {
-		data = a;
-		
-		checkExceptions(data);
 		
 	}
 
