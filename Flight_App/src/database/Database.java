@@ -3,9 +3,11 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import data.Data;
+import data.userNameException;
 
 public class Database {
 	
@@ -52,11 +54,28 @@ public class Database {
 		
 	}
 	
+	public void login(Data example) throws SQLException, userNameException {
+		
+		ResultSet rs;
+		String query = " select pass from user where userName = " + "'" + example.getPerson().getUserName() + "'";
+		PreparedStatement smt = con.prepareStatement(query);
+		rs =smt.executeQuery();
+		if(rs.next()) {					//this means the userName was found
+			if(rs.getString("pass").equalsIgnoreCase(example.getPerson().getPass()))
+				System.out.println("passwords match");
+				else					//passwords don't match
+					System.out.println("passwords don't match");
+			
+			
+		}
+		else
+			throw new userNameException("User name not found, Please sign up");
+	}
+	
 	public void closeConnection() throws SQLException {
 		
 		con.close();
+		System.out.println("connection closed");
 	}
 
-
-	
 }
