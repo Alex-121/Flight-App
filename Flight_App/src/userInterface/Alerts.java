@@ -1,10 +1,10 @@
-package data;
+package userInterface;
 
 import javafx.scene.control.Alert;
 
 public class Alerts {
 
-	public  void alert1(String msg) {
+	public void alert1(String msg) {
 		
 		Alert a1 = new Alert(Alert.AlertType.INFORMATION);
 		a1.setTitle("Warning");
