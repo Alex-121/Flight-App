@@ -4,13 +4,39 @@ import java.math.BigDecimal;
 
 public class Flight {
 	
+	public Flight(int flightID, String startCity, String endCity, String flightTime, BigDecimal price,
+			String flightDate, int seats) {
+		super();
+		this.flightID = flightID;
+		this.startCity = startCity;
+		this.endCity = endCity;
+		this.flightTime = flightTime;
+		this.price = price;
+		this.flightDate = flightDate;
+		this.seats = seats;
+	}
+	private int flightID;
 	private String startCity;
 	private String endCity;
 	private String flightTime;
 	private BigDecimal price;
+	private String flightDate;
+	private int seats;
 	
 	
 	
+	public String getFlightDate() {
+		return flightDate;
+	}
+	public void setFlightDate(String flightDate) {
+		this.flightDate = flightDate;
+	}
+	public int getSeats() {
+		return seats;
+	}
+	public void setSeats(int seats) {
+		this.seats = seats;
+	}
 	public String getStartCity() {
 		return startCity;
 	}
@@ -34,6 +60,12 @@ public class Flight {
 	}
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+	public int getFlightID() {
+		return flightID;
+	}
+	public void setFlightID(int flightID) {
+		this.flightID = flightID;
 	}
 
 }
