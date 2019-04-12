@@ -6,12 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import businessLogic.Flight;
 import data.Data;
 import data.customException;
+import javafx.scene.control.TableView;
 
 public class Database {
 	
-	private Connection con;
+	private static Connection con;
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "1234";
 	private static final String CONN_STRING = "jdbc:mysql://127.0.0.1:3306/project";
@@ -19,13 +21,15 @@ public class Database {
 	
 	public Database() throws ClassNotFoundException, SQLException {
 		
-		this.connectToDatabase();
+		Database.connectToDatabase();
 	}
 	
 	
-	public void connectToDatabase() throws ClassNotFoundException, SQLException {
+	public static Connection connectToDatabase() throws ClassNotFoundException, SQLException {
 		con = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);
 		System.out.println("Connected");
+		return con;
+	
 	}
 	
 	
@@ -61,21 +65,34 @@ public class Database {
 		PreparedStatement smt = con.prepareStatement(query);
 		rs =smt.executeQuery();
 		if(rs.next()) {					//this means the userName was found
-			if(rs.getString("pass").equalsIgnoreCase(example.getPerson().getPass()))
-				System.out.println("passwords match");
+			if(rs.getString("pass").equalsIgnoreCase(example.getPerson().getPass())) 
+				throw new customException("passwords match");
+				//System.out.println("passwords match");
+				
 				else					//passwords don't match
 					System.out.println("passwords don't match");
 			
 			
 		}
 		else
-			throw new customException("User name not found, Please sign up");
+			throw new customException("User name not found. Please sign up");
 	}
 	
-	public void closeConnection() throws SQLException {
+	public Connection getCon() {
+		return con;
+	}
+
+
+	public static void closeConnection() throws SQLException {
 		
 		con.close();
 		System.out.println("connection closed");
 	}
-
+	
+	public static TableView<Flight> populateFlightTable() throws ClassNotFoundException, SQLException {
+		
+		
+		return null;
+		
+	}
 }
