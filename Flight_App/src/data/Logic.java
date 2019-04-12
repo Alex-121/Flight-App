@@ -25,7 +25,7 @@ public class Logic {
 		
 		d = new Database();
 		d.login(example);
-		d.closeConnection();
+		Database.closeConnection();
 		
 	}
 
@@ -33,7 +33,8 @@ public class Logic {
 		
 		d = new Database();
 		d.addUser(data);
-		d.closeConnection();
+		Database.closeConnection();
+		throw new customException("User Created");
 	}
 
 
