@@ -1,8 +1,6 @@
 package userInterface;
 
 import java.io.IOException;
-import java.sql.SQLIntegrityConstraintViolationException;
-
 import businessLogic.Person;
 import data.Data;
 import data.HandleExceptions;
@@ -41,23 +39,38 @@ public class LoginUIController {
 	}
 	// Event Listener on Button[#logIn].onMouseClicked
 	@FXML
-	public void loginClicked(MouseEvent event) {
+	public void loginClicked(MouseEvent event) throws IOException {
 		
 		Person p = new Person();
 		p.setUserName(userName.getText());
 		p.setPass(password.getText());
+		if(userName.getText().toString().equals("admin")) {
+			p.setAdmin(true);
+			System.out.println(p.getisAdmin());
+		}
 		Data d = new Data();
 		d.setPerson(p);
 		HandleExceptions h = new HandleExceptions();
-		try {
-			h.checkExceptions(d, "login");
-		} catch (SQLIntegrityConstraintViolationException e) {
-			// if there is a login error alert user(issue with username or password, try again)
-			if(e.getMessage() == "close") {
+		
+			try {
+				h.checkExceptions(d, "login");
+			} catch (Exception e) {
+				//Depending on the error message things will happen
+				
+				if(e.getMessage() == "passwords match") {
+					Parent root = FXMLLoader.load(getClass().getResource("MainPage.fxml"));
+					Scene scene = new Scene(root);
+					Stage stage = new Stage();
+					stage.setScene(scene);
+					stage.setTitle("Main Page");
+					stage.show();
+				}
+				
 				
 			}
-			e.printStackTrace();
-		}
+		
+			
+		
 	}
 	// Event Listener on Button[#signUp].onMouseClicked
 	@FXML
