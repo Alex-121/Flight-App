@@ -50,14 +50,15 @@ public class LoginUIController {
 		}
 		Data d = new Data();
 		d.setPerson(p);
-		HandleExceptions h = new HandleExceptions();
+		
 		
 			try {
-				h.checkExceptions(d, "login");
+				HandleExceptions.checkExceptions(d, "login");
 			} catch (Exception e) {
 				//Depending on the error message things will happen
 				
 				if(e.getMessage() == "passwords match") {
+					MainPageController.setUserName(p.getUserName());
 					Parent root = FXMLLoader.load(getClass().getResource("MainPage.fxml"));
 					Scene scene = new Scene(root);
 					Stage stage = new Stage();

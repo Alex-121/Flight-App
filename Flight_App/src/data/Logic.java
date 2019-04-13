@@ -1,39 +1,42 @@
 package data;
 
+import java.sql.Connection;
 import database.Database;
 import userInterface.Alerts;
 
 public class Logic {
-	 Database d;
+	 
 	 Alerts a;
-	 Data data;
+	 
 	
 	
 	
 	
-	public void getData(Data example, String msg) throws Exception {
-		data = example;
+	public static void getData(Data example, String msg) throws Exception {
+		
 		
 		if(msg == "sign up")
 			addUser(example);
 		
 		else if(msg == "login")
 			login(example);
+		
 	}
 	
-	private void login(Data example) throws Exception{
+
+	private static void login(Data example) throws Exception{
 		
-		d = new Database();
-		d.login(example);
-		Database.closeConnection();
+		Connection con = Database.connectToDatabase();
+		Database.login(example);
+		con.close();
 		
 	}
 
-	public  void addUser(Data data) throws Exception{
+	public static  void addUser(Data data) throws Exception{
 		
-		d = new Database();
-		d.addUser(data);
-		Database.closeConnection();
+		Connection con = Database.connectToDatabase();
+		Database.addUser(data);
+		con.close();
 		throw new customException("User Created");
 	}
 

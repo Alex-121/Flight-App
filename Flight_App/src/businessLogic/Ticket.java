@@ -2,11 +2,16 @@ package businessLogic;
 
 public class Ticket {
 	
-	private int ticketNo = 1000;			//set to a random number. 
+	private int ticketNo;			
 	private String userName;
-	private String FlightID;
+	private int FlightID;
 	
-	
+	public Ticket(int ticketNo, int flightID, String userName) {
+		super();
+		this.ticketNo = ticketNo;
+		this.userName = userName;
+		FlightID = flightID;
+	}
 	public int getTicketNo() {
 		return ticketNo++;
 	}
@@ -19,10 +24,10 @@ public class Ticket {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public String getFlightID() {
+	public int getFlightID() {
 		return FlightID;
 	}
-	public void setFlightID(String flightID) {
+	public void setFlightID(int flightID) {
 		FlightID = flightID;
 	}
 	

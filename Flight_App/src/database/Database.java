@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import businessLogic.Flight;
 import data.Data;
 import data.customException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 
 public class Database {
@@ -34,7 +36,7 @@ public class Database {
 	
 	
 	
-	public void addUser(Data data) throws SQLException {
+	public static void addUser(Data data) throws SQLException {
 		String query = " insert into user (fName, lName, address, zip, state, userName, pass, email, seqQuestion, answer, ssn)"
 		        + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
@@ -58,7 +60,7 @@ public class Database {
 		
 	}
 	
-	public void login(Data example) throws SQLException, customException {
+	public static void login(Data example) throws SQLException, customException {
 		
 		ResultSet rs;
 		String query = " select pass from user where userName = " + "'" + example.getPerson().getUserName() + "'";
@@ -78,9 +80,6 @@ public class Database {
 			throw new customException("User name not found. Please sign up");
 	}
 	
-	public Connection getCon() {
-		return con;
-	}
 
 
 	public static void closeConnection() throws SQLException {
@@ -89,10 +88,7 @@ public class Database {
 		System.out.println("connection closed");
 	}
 	
-	public static TableView<Flight> populateFlightTable() throws ClassNotFoundException, SQLException {
-		
-		
-		return null;
-		
-	}
+
+
+	
 }

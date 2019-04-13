@@ -78,9 +78,9 @@ public class Sign_UpController {
 		//generic data object that can be push to database and exception catcher
 		Data d = new Data();
 		d.setPerson(p);
-		HandleExceptions h = new HandleExceptions();
+		
 		try {
-			h.checkExceptions(d, "sign up");
+			HandleExceptions.checkExceptions(d, "sign up");
 		} catch (SQLIntegrityConstraintViolationException e) {
 			Alerts.alert1("SSN already used");
 		} catch (customException e) {

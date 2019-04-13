@@ -5,17 +5,17 @@ import java.sql.*;
 import database.Database;
 import userInterface.Alerts;
 
-public class HandleExceptions extends Logic{
+public class HandleExceptions {
 	
 
 
 	
-	public void checkExceptions(Data example, String msg) throws Exception {
-		Logic t = new Logic();
+	public static void checkExceptions(Data example, String msg) throws Exception {
+		
 		
 		try {
 
-			t.getData(example, msg);
+			Logic.getData(example, msg);
 			
 			
 			
