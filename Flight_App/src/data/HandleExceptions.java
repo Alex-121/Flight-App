@@ -5,17 +5,17 @@ import java.sql.*;
 import database.Database;
 import userInterface.Alerts;
 
-public class HandleExceptions extends Logic{
+public class HandleExceptions {
 	
 
 
 	
-	public void checkExceptions(Data example, String msg) throws Exception {
-		Logic t = new Logic();
+	public static void checkExceptions(Data example, String msg) throws Exception {
+		
 		
 		try {
 
-			t.getData(example, msg);
+			Logic.getData(example, msg);
 			
 			
 			
@@ -24,7 +24,7 @@ public class HandleExceptions extends Logic{
 		catch(SQLIntegrityConstraintViolationException ex) {
 			System.out.println("figured it out");
 			//throw this back up so app can display alert about ssn duplication
-			throw new SQLIntegrityConstraintViolationException("SSN error");
+			System.out.println(ex.getMessage());
 		} 
 		catch(customException ex) {
 			
