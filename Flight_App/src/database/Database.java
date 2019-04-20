@@ -133,6 +133,7 @@ public class Database {
 	}
 
 
+
 	public static void deleteTicket(Data data) throws SQLException {
 		String query = "delete from flight_ticket where flightid = ?";
 		PreparedStatement smt = con.prepareStatement(query);
@@ -154,5 +155,10 @@ public class Database {
 		smt.setInt(1, example.getFlight().getFlightID());
 		smt.executeUpdate();
 	}
+
+	
+
+
+
 	
 }

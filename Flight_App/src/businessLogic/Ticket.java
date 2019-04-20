@@ -7,7 +7,9 @@ public class Ticket {
 	private int FlightID;
 	
 	public Ticket(int ticketNo, int flightID, String userName) {
-		
+
+		super();
+
 		this.ticketNo = ticketNo;
 		this.userName = userName;
 		FlightID = flightID;

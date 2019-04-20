@@ -1,7 +1,9 @@
 package data;
 
 import java.sql.Connection;
+
 import java.sql.SQLException;
+
 
 import database.Database;
 import userInterface.Alerts;
@@ -22,6 +24,7 @@ public class Logic {
 		
 		else if(msg == "login")
 			login(example);
+
 		else if(msg.equals("booking"))
 			book(example);
 		else if(msg.equals("delete ticket"))
@@ -30,20 +33,26 @@ public class Logic {
 			addFlight(example);
 		else if(msg.equals("delete flight"))
 			deleteFlight(example);
+
 		
 	}
+	
 
 	private static void login(Data example) throws Exception{
 		
 		Connection con = Database.connectToDatabase();
 		Database.login(example);
 		con.close();
+
 		
 	}
+
+
 
 	public static  void addUser(Data data) throws Exception{
 		
 		Connection con = Database.connectToDatabase();
+
 		Database.addUser(data);
 		con.close();
 		throw new customException("User Created");
