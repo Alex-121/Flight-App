@@ -19,7 +19,7 @@ public class Database {
 	
 	private static Connection con;
 	private static final String USERNAME = "root";
-	private static final String PASSWORD = "12345678";
+	private static final String PASSWORD = "1234";
 	private static final String CONN_STRING = "jdbc:mysql://127.0.0.1:3306/project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 			
 	
