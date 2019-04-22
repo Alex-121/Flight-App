@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="background" fx:id="signUpScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="632.0" prefWidth="600.0" styleClass="parent" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.Sign_UpController">
+   <children>
+      <TextField fx:id="firstName" layoutX="165.0" layoutY="93.0" prefHeight="25.0" prefWidth="270.0" promptText="First Name" />
+      <TextField fx:id="lastName" layoutX="165.0" layoutY="130.0" prefHeight="25.0" prefWidth="270.0" promptText="Last Name" />
+      <TextField fx:id="address" layoutX="165.0" layoutY="165.0" prefHeight="25.0" prefWidth="270.0" promptText="Address" />
+      <TextField fx:id="zip" layoutX="165.0" layoutY="202.0" prefHeight="25.0" prefWidth="270.0" promptText="Zip Code" />
+      <TextField fx:id="state" layoutX="165.0" layoutY="236.0" prefHeight="25.0" prefWidth="270.0" promptText="State(GA,TN,CA)" />
+      <TextField fx:id="userName" layoutX="165.0" layoutY="276.0" prefHeight="25.0" prefWidth="270.0" promptText="User Name" />
+      <PasswordField fx:id="pass" layoutX="165.0" layoutY="316.0" prefHeight="25.0" prefWidth="270.0" promptText="Password" />
+      <TextField fx:id="email" layoutX="165.0" layoutY="353.0" prefHeight="25.0" prefWidth="270.0" promptText="Email" />
+      <TextField fx:id="answer" layoutX="165.0" layoutY="455.0" prefHeight="25.0" prefWidth="270.0" promptText="Answer" />
+      <PasswordField fx:id="ssn" layoutX="165.0" layoutY="495.0" prefHeight="25.0" prefWidth="270.0" promptText="SSN" />
+      <ChoiceBox fx:id="securityQuestion" layoutX="165.0" layoutY="416.0" prefHeight="25.0" prefWidth="270.0" />
+      <Button fx:id="signupButton" layoutX="214.0" layoutY="538.0" mnemonicParsing="false" onMouseClicked="#addUser" prefHeight="41.0" prefWidth="172.0" text="Sign Up" />
+      <Label layoutX="253.0" layoutY="390.0" text="Security Question" />
+   </children>
+</AnchorPane>
