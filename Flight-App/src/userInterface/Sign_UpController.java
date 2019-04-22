@@ -62,6 +62,7 @@ public class Sign_UpController {
 	public void addUser(MouseEvent event) throws Exception {
 		
 		//generic person class that has all the variables
+		try {
 		Person p = new Person();
 		p.setFirstName(firstName.getText());
 		p.setLastName(lastName.getText());
@@ -79,12 +80,12 @@ public class Sign_UpController {
 		Data d = new Data();
 		d.setPerson(p);
 		
-		try {
+		
 			HandleExceptions.checkExceptions(d, "sign up");
 		} catch (SQLIntegrityConstraintViolationException e) {
 			Alerts.alert1("SSN already used");
-		} catch (customException e) {
-			//login to main
+		} catch (Exception e) {
+			Alerts.alert1("Check inputs. Fields can not be empty and zip/ssn need to be numbers");
 		}
 		
 	}
