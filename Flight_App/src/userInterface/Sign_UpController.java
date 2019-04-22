@@ -1,8 +1,11 @@
 package userInterface;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import businessLogic.Person;
 import data.Data;
 import data.HandleExceptions;
+import data.customException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -56,7 +59,7 @@ public class Sign_UpController {
 
 	// Event Listener on Button[#signupButton].onMouseClicked
 	@FXML
-	public void addUser(MouseEvent event) throws Exception{
+	public void addUser(MouseEvent event) throws Exception {
 		
 		//generic person class that has all the variables
 		Person p = new Person();
@@ -75,9 +78,14 @@ public class Sign_UpController {
 		//generic data object that can be push to database and exception catcher
 		Data d = new Data();
 		d.setPerson(p);
-		HandleExceptions ex = new HandleExceptions();
-		ex.setData(d);
 		
+		try {
+			HandleExceptions.checkExceptions(d, "sign up");
+		} catch (SQLIntegrityConstraintViolationException e) {
+			Alerts.alert1("SSN already used");
+		} catch (customException e) {
+			//login to main
+		}
 		
 	}
 	

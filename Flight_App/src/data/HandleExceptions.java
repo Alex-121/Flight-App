@@ -3,54 +3,51 @@ package data;
 import java.sql.*;
 
 import database.Database;
-import javafx.scene.control.Alert;
+import userInterface.Alerts;
 
 public class HandleExceptions {
 	
-	Database d;
-	Alerts a;
-	Data data;
+
+
 	
-	
-	public void checkExceptions(Object obj) {
+	public static void checkExceptions(Data example, String msg) throws Exception {
+		
 		
 		try {
-			System.out.println("In the check section");
-			d = new Database();
-			d.addUser((data));
-			d.closeConnection();
+
+			Logic.getData(example, msg);
+			
+			
+			
 		}
 		
 		catch(SQLIntegrityConstraintViolationException ex) {
-			a = new Alerts();
-			String error = ex.getMessage();
-			a.alert1(error);
+			System.out.println("figured it out");
+			//throw this back up so app can display alert about ssn duplication
+			System.out.println(ex.getMessage());
+		} 
+		catch(customException ex) {
+			
+			if(ex.getMessage() == "User name not found. Please sign up")
+				Alerts.alert1(ex.getMessage());
+			throw ex ;
 		}
+		
 		catch(Exception ex) {
 			ex.printStackTrace();
 		}
 		finally {
-			//must wrap the close in a try catch
+			
+			
+			
 			try {
+				Database.closeConnection();
 				
 			} catch (Exception e) {
 				
 				System.out.println("Error caught");;
 			}
 		}
-		
-	}
-	public Database getD() {
-		return d;
-	}
-	public void setD(Database d) {
-		this.d = d;
-	}
-	
-	public void setData(Data a) {
-		data = a;
-		
-		checkExceptions(data);
 		
 	}
 

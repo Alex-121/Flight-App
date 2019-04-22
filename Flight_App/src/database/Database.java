@@ -3,13 +3,21 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import businessLogic.Flight;
+import businessLogic.Ticket;
 import data.Data;
+import data.customException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
+import userInterface.MainPageController;
 
 public class Database {
 	
-	private Connection con;
+	private static Connection con;
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "1234";
 	private static final String CONN_STRING = "jdbc:mysql://127.0.0.1:3306/project";
@@ -17,18 +25,20 @@ public class Database {
 	
 	public Database() throws ClassNotFoundException, SQLException {
 		
-		this.connectToDatabase();
+		Database.connectToDatabase();
 	}
 	
 	
-	public void connectToDatabase() throws ClassNotFoundException, SQLException {
+	public static Connection connectToDatabase() throws ClassNotFoundException, SQLException {
 		con = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);
 		System.out.println("Connected");
+		return con;
+	
 	}
 	
 	
 	
-	public void addUser(Data data) throws SQLException {
+	public static void addUser(Data data) throws SQLException {
 		String query = " insert into user (fName, lName, address, zip, state, userName, pass, email, seqQuestion, answer, ssn)"
 		        + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
@@ -48,14 +58,106 @@ public class Database {
 		smt.execute();
 	}
 	
-	public void addFlight(Data a) {
+	public static void addFlight(Data a) throws SQLException {
 		
+		String query = "insert into flight (flightid,startcity,endcity,flighttime,flightdate,price,seats) "
+				+ "values (?,?,?,?,?,?,?)";
+		PreparedStatement smt = con.prepareStatement(query);
+		smt.setInt(1, a.getFlight().getFlightID());
+		smt.setString(2,a.getFlight().getStartCity());
+		smt.setString(3, a.getFlight().getEndCity());
+		smt.setString(4, a.getFlight().getFlightTime());
+		smt.setString(5, a.getFlight().getFlightDate());
+		smt.setInt(6, a.getFlight().getPrice().intValue());
+		smt.setInt(7, a.getFlight().getSeats());
+		
+		smt.execute();
 	}
 	
-	public void closeConnection() throws SQLException {
+	public static void login(Data example) throws SQLException, customException {
+		
+		ResultSet rs;
+		String query = " select pass from user where userName = ?";
+		PreparedStatement smt = con.prepareStatement(query);
+		smt.setString(1, example.getPerson().getUserName());
+		rs =smt.executeQuery();
+		if(rs.next()) {					//this means the userName was found
+			if(rs.getString("pass").equalsIgnoreCase(example.getPerson().getPass())) 
+				throw new customException("passwords match");
+				//System.out.println("passwords match");
+				
+				else					//passwords don't match
+					System.out.println("passwords don't match");
+			
+			
+		}
+		else
+			throw new customException("User name not found. Please sign up");
+	}
+	
+
+	public static void book(Data data) throws SQLException {
+		
+		
+		ResultSet rs;
+		int test = 0;
+		String query ="select ssn from project.user where username = ?";
+		PreparedStatement smt = con.prepareStatement(query);
+		smt.setString(1, data.getTicket().getUserName());
+		rs = smt.executeQuery();
+		while(rs.next()) {
+			test = Integer.parseInt(rs.getString("ssn"));
+		}
+		
+		query = "insert into flight_ticket (ticket_No, ssn, flightid, username) values(?,?,?,?)";
+		smt = con.prepareStatement(query);
+		smt.setInt(1, data.getTicket().getTicketNo());
+		smt.setInt(2, test);
+		smt.setInt(3, data.getTicket().getFlightID());
+		smt.setString(4, data.getTicket().getUserName());
+		
+		smt.execute();
+		
+		query = "UPDATE project.flight SET seats = seats - 1 WHERE (flightid = ?)";
+		smt = con.prepareStatement(query);
+		smt.setInt(1, data.getTicket().getFlightID());
+		
+		smt.execute();
+	}
+	
+
+	public static void closeConnection() throws SQLException {
 		
 		con.close();
+		System.out.println("connection closed");
 	}
+
+
+
+	public static void deleteTicket(Data data) throws SQLException {
+		String query = "delete from flight_ticket where flightid = ?";
+		PreparedStatement smt = con.prepareStatement(query);
+		smt.setInt(1, data.getTicket().getFlightID());
+		smt.executeUpdate();
+		
+		query = "UPDATE project.flight SET seats = seats + 1 WHERE (flightid = ?)";
+		smt = con.prepareStatement(query);
+		smt.setInt(1, data.getTicket().getFlightID());
+		
+		smt.execute();
+			
+	}
+
+
+	public static void deleteFlight(Data example) throws SQLException {
+		String query = "delete from flight where flightid = ?";
+		PreparedStatement smt = con.prepareStatement(query);
+		smt.setInt(1, example.getFlight().getFlightID());
+		smt.executeUpdate();
+	}
+
+	
+
 
 
 	

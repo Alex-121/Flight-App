@@ -25,6 +25,8 @@ public class Person {
 	private String answer;
 	
 	private int ssn;
+	
+	private boolean isAdmin;
 
 	public String getFirstName() {
 		return firstName;
@@ -118,4 +120,14 @@ public class Person {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public boolean getisAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+	
 }
