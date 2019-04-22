@@ -19,9 +19,9 @@ public class Database {
 	
 	private static Connection con;
 	private static final String USERNAME = "root";
-	private static final String PASSWORD = "1234";
-	private static final String CONN_STRING = "jdbc:mysql://127.0.0.1:3306/project";
-	
+	private static final String PASSWORD = "12345678";
+	private static final String CONN_STRING = "jdbc:mysql://127.0.0.1:3306/project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+			
 	
 	public Database() throws ClassNotFoundException, SQLException {
 		
@@ -68,7 +68,7 @@ public class Database {
 		smt.setString(3, a.getFlight().getEndCity());
 		smt.setString(4, a.getFlight().getFlightTime());
 		smt.setString(5, a.getFlight().getFlightDate());
-		smt.setInt(6, a.getFlight().getPrice().intValue());
+		smt.setInt(6, a.getFlight().getPrice());
 		smt.setInt(7, a.getFlight().getSeats());
 		
 		smt.execute();
@@ -87,7 +87,7 @@ public class Database {
 				//System.out.println("passwords match");
 				
 				else					//passwords don't match
-					System.out.println("passwords don't match");
+					throw new SQLException("Password doesn't match.");
 			
 			
 		}
@@ -116,7 +116,11 @@ public class Database {
 		smt.setInt(3, data.getTicket().getFlightID());
 		smt.setString(4, data.getTicket().getUserName());
 		
-		smt.execute();
+		try {
+			smt.execute();
+		} catch (SQLException e) {
+			throw new SQLException("Flight already booked");
+		}
 		
 		query = "UPDATE project.flight SET seats = seats - 1 WHERE (flightid = ?)";
 		smt = con.prepareStatement(query);
@@ -153,6 +157,46 @@ public class Database {
 		String query = "delete from flight where flightid = ?";
 		PreparedStatement smt = con.prepareStatement(query);
 		smt.setInt(1, example.getFlight().getFlightID());
+		smt.executeUpdate();
+	}
+
+
+	public static void checkQuestion(Data example) throws SQLException {
+		String query = "select answer from project.user where seqQuestion = ? and email = ?";
+		PreparedStatement smt = con.prepareStatement(query);
+		smt.setString(1, example.getPerson().getQuestion());
+		smt.setString(2, example.getPerson().getEmail());
+		ResultSet rs;
+		
+		rs =smt.executeQuery();
+		
+		while(rs.next()) {
+			if(!rs.getString("answer").equals(example.getPerson().getAnswer()))
+				throw new SQLException("Check answer.");		
+		}
+		//if above is true, it shouldn't get to this line
+		
+		query = "select pass from project.user where seqQuestion = ? and email = ?";
+		smt = con.prepareStatement(query);
+		smt.setString(1, example.getPerson().getQuestion());
+		smt.setString(2, example.getPerson().getEmail());
+		
+		
+		rs =smt.executeQuery();
+		while(rs.next()) {
+			throw new SQLException("Your password is " + rs.getString("pass"));
+		}
+		
+	}
+
+
+	public static void editFlight(Data example) throws SQLException {
+		String query = "UPDATE project.flight SET price = ?, seats = ? WHERE (flightid = ?)";
+		PreparedStatement smt = con.prepareStatement(query);
+		smt.setInt(1, example.getFlight().getPrice());
+		smt.setInt(2, example.getFlight().getSeats());
+		smt.setInt(3, example.getFlight().getFlightID());
+		
 		smt.executeUpdate();
 	}
 

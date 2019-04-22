@@ -33,10 +33,21 @@ public class Logic {
 			addFlight(example);
 		else if(msg.equals("delete flight"))
 			deleteFlight(example);
+		else if(msg.equals("question"))
+			checkQuestion(example);
+		else if(msg.equals("edit"))
+			editFlight(example);
 
 		
 	}
-	
+
+
+	private static void editFlight(Data example) throws ClassNotFoundException, SQLException {
+		Connection con = Database.connectToDatabase();
+		Database.editFlight(example);
+		con.close();
+	}
+
 
 	private static void login(Data example) throws Exception{
 		
@@ -82,4 +93,11 @@ public class Logic {
 		Database.deleteFlight(example);
 		con.close();
 	}
+	
+	private static void checkQuestion(Data example) throws ClassNotFoundException, SQLException {
+		Connection con = Database.connectToDatabase();
+		Database.checkQuestion(example);
+		con.close();
+	}
+	
 }

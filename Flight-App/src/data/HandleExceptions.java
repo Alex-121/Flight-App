@@ -22,9 +22,7 @@ public class HandleExceptions {
 		}
 		
 		catch(SQLIntegrityConstraintViolationException ex) {
-			System.out.println("figured it out");
-			//throw this back up so app can display alert about ssn duplication
-			System.out.println(ex.getMessage());
+			Alerts.alert1(ex.getMessage());;
 		} 
 		catch(customException ex) {
 			
@@ -34,7 +32,7 @@ public class HandleExceptions {
 		}
 		
 		catch(Exception ex) {
-			ex.printStackTrace();
+			Alerts.alert1(ex.getMessage());
 		}
 		finally {
 			

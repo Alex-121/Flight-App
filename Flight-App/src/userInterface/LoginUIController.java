@@ -64,6 +64,7 @@ public class LoginUIController {
 					Stage stage = new Stage();
 					stage.setScene(scene);
 					stage.setTitle("Main Page");
+					stage.setResizable(false);
 					stage.show();
 				}
 				
@@ -95,6 +96,18 @@ public class LoginUIController {
 	@FXML
 	public void getQuestion(MouseEvent event) {
 	
-		
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("Forgot Password.fxml"));
+			Scene scene = new Scene(root);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.setTitle("Forgot Password");
+			stage.show();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 	}
+		
+	
 }

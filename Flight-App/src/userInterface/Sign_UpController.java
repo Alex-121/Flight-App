@@ -22,7 +22,7 @@ import javafx.scene.control.ChoiceBox;
 
 public class Sign_UpController {
 	
-	ObservableList<String> questions = FXCollections.observableArrayList("Your favorite band in High School?", "The name of your first pet?", "Name of the city you were born in?", "Model of dream car?");
+	static ObservableList<String> questions = FXCollections.observableArrayList("Your favorite band in High School?", "The name of your first pet?", "Name of the city you were born in?", "Model of dream car?");
 	
 	@FXML
 	private AnchorPane signUpScreen;

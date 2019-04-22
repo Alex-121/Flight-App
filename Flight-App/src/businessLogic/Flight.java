@@ -8,7 +8,7 @@ public class Flight {
 	private String startCity;
 	private String endCity;
 	private String flightTime;
-	private BigDecimal price;
+	private int price;
 	private String flightDate;
 	private int seats;
 	
@@ -16,7 +16,7 @@ public class Flight {
 		
 	}
 	
-	public Flight(int flightID, String startCity, String endCity, String flightTime, BigDecimal price,
+	public Flight(int flightID, String startCity, String endCity, String flightTime, int price,
 			String flightDate, int seats) {
 		super();
 		this.flightID = flightID;
@@ -58,10 +58,10 @@ public class Flight {
 	public void setFlightTime(String flightTime) {
 		this.flightTime = flightTime;
 	}
-	public BigDecimal getPrice() {
+	public int getPrice() {
 		return price;
 	}
-	public void setPrice(BigDecimal price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 	public int getFlightID() {
