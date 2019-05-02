@@ -85,7 +85,10 @@ public class Sign_UpController {
 		} catch (SQLIntegrityConstraintViolationException e) {
 			Alerts.alert1("SSN already used");
 		} catch (Exception e) {
-			Alerts.alert1("Check inputs. Fields can not be empty and zip/ssn need to be numbers");
+			if(e.getMessage().equals("User Created"))
+				Alerts.alert1(e.getMessage());
+			else
+				Alerts.alert1("Check inputs. Fields can not be empty and zip/ssn need to be numbers");
 		}
 		
 	}

@@ -142,14 +142,15 @@ public class Database {
 		String query = "delete from flight_ticket where flightid = ?";
 		PreparedStatement smt = con.prepareStatement(query);
 		smt.setInt(1, data.getTicket().getFlightID());
-		smt.executeUpdate();
+		
+			smt.executeUpdate();
 		
 		query = "UPDATE project.flight SET seats = seats + 1 WHERE (flightid = ?)";
 		smt = con.prepareStatement(query);
 		smt.setInt(1, data.getTicket().getFlightID());
 		
-		smt.execute();
-			
+			smt.executeUpdate();
+		
 	}
 
 
@@ -171,8 +172,9 @@ public class Database {
 		rs =smt.executeQuery();
 		
 		while(rs.next()) {
-			if(!rs.getString("answer").equals(example.getPerson().getAnswer()))
-				throw new SQLException("Check answer.");		
+			if(!rs.getString("answer").equalsIgnoreCase(example.getPerson().getAnswer()))
+				throw new SQLException("Check answer.");
+		
 		}
 		//if above is true, it shouldn't get to this line
 		

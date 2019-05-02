@@ -49,24 +49,28 @@ public class ForgotPasswordController implements Initializable {
     public void checkClicked(MouseEvent event) {
 		
 	Person p = new Person();
-	p.setEmail(email.getText());
-	p.setQuestion(secQuestions.getValue());
-	p.setAnswer(answer.getText());
-	Data d = new Data();
-	d.setPerson(p);
+	if(!email.getText().contains("@"))
+		Alerts.alert1("Check email");
+	else {
+		p.setEmail(email.getText());
+		p.setQuestion(secQuestions.getValue());
+		p.setAnswer(answer.getText());
+		Data d = new Data();
+		d.setPerson(p);
 	
-	try {
-		HandleExceptions.checkExceptions(d, "question");
-	} catch (Exception e) {
+		try {
+			HandleExceptions.checkExceptions(d, "question");
+		} catch (Exception e) {
 		// TODO Auto-generated catch block
 		System.out.println(e.getMessage());;
-	}
+		  }
 
-    }
+    	}	
 	
+	}
 	@FXML
 	public void backClicked(MouseEvent event) {
 		forgotPane.getScene().getWindow().hide();
 	}
-	
+
 }

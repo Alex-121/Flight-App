@@ -128,24 +128,28 @@ public class MainPageController implements Initializable {
     	Flight flight = FlightTable.getSelectionModel().getSelectedItem();
     	
     	//if the flight is full we can check before checking the database. 
-    	if(flight.getSeats() == 0)
-    		Alerts.alert1("Flight is full");
+    	if(flight != null) { 
+    		if(flight.getSeats() == 0)
+    			Alerts.alert1("Flight is full");
     		
-    	else {
+    		else {
     	
     	
-    	//random number for the ticket number , and get the flight id from the table
-    	Random r = new Random();
-    	Ticket t = new Ticket(r.nextInt(9999-1000) + 1000, flight.getFlightID(),usern);
-    	Data d = new Data();
-    	d.setTicket(t);
-    	HandleExceptions.checkExceptions(d, "booking");
+    			//random number for the ticket number , and get the flight id from the table
+    			Random r = new Random();
+    			Ticket t = new Ticket(r.nextInt(9999-1000) + 1000, flight.getFlightID(),usern);
+    			Data d = new Data();
+    			d.setTicket(t);
+    			HandleExceptions.checkExceptions(d, "booking");
     	
-    	}
+    		}
     	
-    	refresh();
-    }
+    		refresh();
     
+    }
+    else
+    	Alerts.alert1("No flight selected");
+    }
     //update so that this isn't a button and is only a method so that the refresh can be called after any button press.
     @FXML
     void logOutClicked(MouseEvent event) {
@@ -185,8 +189,8 @@ public class MainPageController implements Initializable {
 		updateFlightTable("select * from flight");
 		updateTicketTable("select ticket_no, flightid, username from flight_ticket where userName = ?");
 		
-		if(!usern.equalsIgnoreCase("admin")) {
-			AdminPage.setVisible(false);;
+		if(!usern.contains("admin")) {
+			AdminPage.setVisible(false);
 			
 		}
 	}
@@ -276,49 +280,68 @@ public class MainPageController implements Initializable {
 	    void adminDelete(MouseEvent event) {
 	    	
 	    	Flight flight = FlightTable.getSelectionModel().getSelectedItem();
-	    	Data d = new Data();
-	    	d.setFlight(flight);
-	    	try {
-				HandleExceptions.checkExceptions(d, "delete flight");
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	    	if(flight != null) {
+	    		Data d = new Data();
+	    		d.setFlight(flight);
+	    		try {
+	    			HandleExceptions.checkExceptions(d, "delete flight");
+	    		} catch (Exception e) {
+	    			// TODO Auto-generated catch block
+	    			e.printStackTrace();
+	    		}
 	    	
-	    	refresh();
+	    		refresh();
+	    	}
+	    	else 
+	    		Alerts.alert1("No flight selected to delete");
 	    }
 
 	    @FXML
 	    void adminEdit(MouseEvent event) throws Exception {
 	    	Flight flight = new Flight();
-	    	flight.setFlightID(FlightTable.getSelectionModel().getSelectedItem().getFlightID());
-	    	flight.setSeats(Integer.parseInt(seats.getText()));
-	    	flight.setPrice(Integer.parseInt(price.getText()));
+	    	if(FlightTable.getSelectionModel().isEmpty()) 
+	    		Alerts.alert1("Please select flight to edit");
+	    	else {
+	    		flight.setFlightID(FlightTable.getSelectionModel().getSelectedItem().getFlightID());
+	    		if(!seats.getText().isEmpty())
+	    			flight.setSeats(Integer.parseInt(seats.getText()));
+	    		else
+	    			flight.setSeats(FlightTable.getSelectionModel().getSelectedItem().getSeats());
+	    	
+	    		if(!price.getText().isEmpty())
+	    			flight.setPrice(Integer.parseInt(price.getText()));
+	    		else
+	    			flight.setPrice(FlightTable.getSelectionModel().getSelectedItem().getPrice());
+	    	}
 	    	Data d = new Data();
 	    	d.setFlight(flight);
 	    	
 	    	HandleExceptions.checkExceptions(d, "edit");
 	    	refresh();
 	    }
-
 	    @FXML
 	    void deleteClicked(MouseEvent event) throws Exception {
 	    	
 	    	Ticket ticket = ticketsBookedTable.getSelectionModel().getSelectedItem();
+	    	if (ticket == null) {
+	    		Alerts.alert1("No ticket selected");
+	    	}
+	    	else {
 	    	Data d = new Data();
 	    	d.setTicket(ticket);
 	    	HandleExceptions.checkExceptions(d, "delete ticket");
 	    	
 	    	refresh();
 	    }
-	    
+	    	
+	    }
 	    @FXML
 	    void refreshClicked(MouseEvent event) {
 	    	refresh();
 	    }
 
 		public static void setUserName(String string) {
-			usern = string;
+			usern = string.toLowerCase();
 		}
 		
 		public void refresh() {

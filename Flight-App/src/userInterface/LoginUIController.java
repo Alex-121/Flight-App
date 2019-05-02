@@ -43,12 +43,20 @@ public class LoginUIController {
 	public void loginClicked(MouseEvent event) throws IOException {
 		
 		Person p = new Person();
-		p.setUserName(userName.getText());
-		p.setPass(password.getText());
-		if(userName.getText().equals("admin")) {
-			p.setAdmin(true);
+		if(userName.getText().isEmpty() && password.getText().isEmpty()
+				|| userName.getText().isEmpty()
+				|| password.getText().isEmpty())
+			Alerts.alert1("Please enter user name and/or password");
+		else {
 			
-		}
+				p.setUserName(userName.getText());
+				
+				p.setPass(password.getText());
+				
+			if(userName.getText().contains("admin")) {
+				p.setAdmin(true);
+			
+			}
 		Data d = new Data();
 		d.setPerson(p);
 		
@@ -72,7 +80,7 @@ public class LoginUIController {
 				
 			}
 		
-			
+		}	
 		
 	}
 	// Event Listener on Button[#signUp].onMouseClicked
