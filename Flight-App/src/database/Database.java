@@ -71,7 +71,12 @@ public class Database {
 		smt.setInt(6, a.getFlight().getPrice());
 		smt.setInt(7, a.getFlight().getSeats());
 		
+		try {
 		smt.execute();
+		}
+		catch (SQLException ex) {
+			throw new SQLException("Flight already exists");
+		}
 	}
 	
 	public static void login(Data example) throws SQLException, customException {
