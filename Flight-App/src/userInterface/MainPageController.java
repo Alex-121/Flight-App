@@ -9,10 +9,10 @@ import java.sql.SQLException;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-import businessLogic.Flight;
-import businessLogic.Ticket;
 import data.Data;
+import data.Flight;
 import data.HandleExceptions;
+import data.Ticket;
 import database.Database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -3,9 +3,9 @@ package userInterface;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import businessLogic.Person;
 import data.Data;
 import data.HandleExceptions;
+import data.Person;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

@@ -1,9 +1,10 @@
 package userInterface;
 
 import java.io.IOException;
-import businessLogic.Person;
+
 import data.Data;
 import data.HandleExceptions;
+import data.Person;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -6,9 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import businessLogic.Flight;
-import businessLogic.Ticket;
 import data.Data;
+import data.Flight;
+import data.Ticket;
 import data.customException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

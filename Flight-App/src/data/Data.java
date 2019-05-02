@@ -1,9 +1,5 @@
 package data;
 
-import businessLogic.Flight;
-import businessLogic.Person;
-import businessLogic.Ticket;
-
 public class Data {
 	
 	private  Person person;

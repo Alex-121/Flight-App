@@ -1,6 +1,4 @@
-package businessLogic;
-
-import data.Data;
+package data;
 
 public class Person {
 	

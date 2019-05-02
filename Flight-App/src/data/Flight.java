@@ -1,4 +1,4 @@
-package businessLogic;
+package data;
 
 import java.math.BigDecimal;
 

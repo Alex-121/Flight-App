@@ -2,9 +2,9 @@ package userInterface;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 
-import businessLogic.Person;
 import data.Data;
 import data.HandleExceptions;
+import data.Person;
 import data.customException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
