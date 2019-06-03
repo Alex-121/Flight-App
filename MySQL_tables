@@ -1,0 +1,36 @@
+CREATE TABLE `flight` (
+  `flightid` int(11) NOT NULL AUTO_INCREMENT,
+  `startCity` char(3) DEFAULT NULL,
+  `endCity` char(3) DEFAULT NULL,
+  `flightTime` char(5) DEFAULT NULL,
+  `flightDate` varchar(10) DEFAULT NULL,
+  `price` decimal(3,0) DEFAULT NULL,
+  `seats` int(2) DEFAULT NULL,
+  PRIMARY KEY (`flightid`)
+)
+
+CREATE TABLE `flight_ticket` (
+  `ticket_no` int(4) DEFAULT NULL,
+  `ssn` int(9) NOT NULL,
+  `flightid` int(11) NOT NULL,
+  `userName` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`ssn`,`flightid`),
+  KEY `flightid_idx` (`flightid`),
+  CONSTRAINT `flightid` FOREIGN KEY (`flightid`) REFERENCES `flight` (`flightid`),
+  CONSTRAINT `ssn` FOREIGN KEY (`ssn`) REFERENCES `user` (`ssn`)
+) 
+
+CREATE TABLE `user` (
+  `fName` varchar(25) DEFAULT NULL,
+  `lName` varchar(25) DEFAULT NULL,
+  `address` varchar(50) DEFAULT NULL,
+  `zip` int(5) DEFAULT NULL,
+  `state` char(2) DEFAULT NULL,
+  `userName` varchar(25) DEFAULT NULL,
+  `pass` varchar(25) DEFAULT NULL,
+  `email` varchar(25) DEFAULT NULL,
+  `seqQuestion` varchar(75) DEFAULT NULL,
+  `answer` varchar(25) DEFAULT NULL,
+  `ssn` int(9) NOT NULL,
+  PRIMARY KEY (`ssn`)
+) 
