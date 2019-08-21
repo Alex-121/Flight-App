@@ -8,7 +8,7 @@ Java based application that simulates booking a flight. GUI developed using Scen
 ## Login
 ![Login](https://user-images.githubusercontent.com/47226703/63475557-576f1600-c44b-11e9-848a-98ee75de1202.PNG) 
 #### Requirements
-Have user information be validated via database. If username or password results in an error handle and let user know what exactly the issue is.
+Have user information be validated via database. If username or password results in an error, handle the error and let user know what exactly the issue is.
 
 ## Signup
 ![signup](https://user-images.githubusercontent.com/47226703/63475570-648c0500-c44b-11e9-9a41-9c3d1486f2b7.PNG) <br>
