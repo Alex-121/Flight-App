@@ -7,19 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import data.Data;
-import data.Flight;
-import data.Ticket;
 import data.customException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableView;
-import userInterface.MainPageController;
 
 public class Database {
 	
 	private static Connection con;
-	private static final String USERNAME = "root";
-	private static final String PASSWORD = "1234";
+	private static final String USERNAME = "Alex";
+	private static final String PASSWORD = "Paramour12?";
 	private static final String CONN_STRING = "jdbc:mysql://127.0.0.1:3306/project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 			
 	
@@ -82,7 +76,7 @@ public class Database {
 	public static void login(Data example) throws SQLException, customException {
 		
 		ResultSet rs;
-		String query = " select pass from user where userName = ?";
+		String query = "select pass from user where username = ?";
 		PreparedStatement smt = con.prepareStatement(query);
 		smt.setString(1, example.getPerson().getUserName());
 		rs =smt.executeQuery();
